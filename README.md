@@ -1,6 +1,8 @@
 # Cloud_Banking_Application
 This is an application hosted over aws . Its serverless and requires a fully operational aws account to be executed..
 
+STEP 1
+
 
 						ENDPOINT URLs
 
