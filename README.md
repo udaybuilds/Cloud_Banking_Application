@@ -7,6 +7,8 @@ This is an application hosted over aws . Its serverless and requires a fully ope
 
 https://fsxndeh05l.execute-api.ap-south-1.amazonaws.com/prod/otp-cloudFront-uday/?acc:data.acc
 The above url should be included while calling the  application to generate otp and send it to the registered number of account holder , if the valid account no is entered.  ”data.acc” at the end of url must be replaced by the account no. while integration. Following services are called in sequence to send otp to number and return it as the response while calling the url..
+
+
 “otp-cloudFront-uday” resource of unisys_cloud_uday  api gateway
 “otp-cloudFront-uday” lambda function generates otp and returns it to url call. 
 “Accounts_uday” table of the DynamoDb
