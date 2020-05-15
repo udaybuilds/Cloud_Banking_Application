@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Unisys(Trial) Check Balance</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style>
+      html, body {
+      display: flex;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+      }
+      form {
+      border: 5px solid #f1f1f1;
+      }
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      button {
+      background-color: #8ebf42;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 100%;
+      }
+      h1 {
+      text-align:center;
+      fone-size:18;
+      }
+      button:hover {
+      opacity: 0.8;
+      }
+      .formcontainer {
+      text-align: left;
+      margin: 24px 50px 12px;
+      }
+      .container {
+      padding: 16px 0;
+      text-align:left;
+      }
+      span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;
+      }
+      @media screen and (max-width: 300px) {
+      span.psw {
+      display: block;
+      float: none;
+      }
+    </style>
+    <script>
+	$(document).ready(function(){
+		$("#sub").click(function(event){
+		event.preventDefault();
+		var d1 = document.getElementById("acc").value;
+		var data ={
+			acc:d1
+			
+		};
+		$.ajax({
+				type:'POST',
+				url:"https://fsxndeh05l.execute-api.ap-south-1.amazonaws.com/prod/otp-cloudFront-uday/?acc:data.acc",
+				crossDomain: true,
+				data:JSON.stringify(data),
+				contentType:"application/json",
+				success:
+			function(data2){
+			data2=parseInt(data2);
+				if (data2===1)
+				{
+					alert("Invalid Account no");
+					location.reload(true);
+					
+				}
+				if(data2!==1)
+				{var otp=prompt("Enter otp sent to your Registered number")
+				otp=parseInt(otp);
+				if (data2!==otp){
+					alert("Invalid Otp!! Retry");
+					location.reload(true);
+				}
+				}
+				if (otp===data2)
+				{
+							$.ajax({
+			type: 'POST',
+			url: "https://fsxndeh05l.execute-api.ap-south-1.amazonaws.com/prod/balancecheck/?acc=data.acc",
+			crossDomain: true,
+			data: JSON.stringify(data),
+			contentType:"application/json",
+			success:function(data1){
+			alert(data1);
+			window.location.href = "https://unisys-trial-uday.s3.ap-south-1.amazonaws.com/know.html";
+			},error: function (thrownError) {
+           // show an error message
+           alert("UnSuccessfull");
+         }
+			});
+				}
+				
+			},
+			error: function(thrownError) {
+				alert("UnSuccesful Retry!!");
+				location.reload(true);
+			}
+		});
+		});
+	});
+    </script>
+  </head>
+  <body>
+    <form id="transfer" method="post">
+      <h1>Check Balance</h1>
+      <div class="formcontainer">
+      <hr/>
+      <div class="container">
+        <label for="uname"><strong>Account No</strong></label>
+        <input type="text" placeholder="Enter Account No" id="acc" >
+      </div>
+      <button type="submit" id="sub">Send</button>
+    </form>
+  </body>
+</html> 
