@@ -44,7 +44,7 @@ def lambda_handler(event, context):
 	else:
 		item = response['Item']
 	# print(response['balance'])
-	url='http://******************/****/****'
+	url='http://******************/****/****' #Hidden for security purposes
 	resp=requests.get(url)
 	words=[]
 	if resp.status_code==200: 
