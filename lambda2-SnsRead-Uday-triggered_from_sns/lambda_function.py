@@ -44,7 +44,7 @@ def lambda_handler(event, context):
 	else:
 		item = response['Item']
 	# print(response['balance'])
-	url='http://96.64.80.81/MCPConnector/get/values/1'
+	url='http://******************/****/****'
 	resp=requests.get(url)
 	words=[]
 	if resp.status_code==200: 
